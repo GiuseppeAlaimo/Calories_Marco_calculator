@@ -1,83 +1,93 @@
-let deficit, surplus
+<!DOCTYPE html>
+<html lang="en">
 
-function Calculate() {
-    sesso = document.getElementById("sesso").value
-    nome = document.getElementById("nome").value
-    peso = document.getElementById("peso").value
-    altezza = document.getElementById("altezza").value
-    anni = document.getElementById("anni").value
-    attivita = document.getElementById("activity").value
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie requirement calculator</title>
+</head>
 
-    //calcolare BMR = Basic Metabolic Rate
-    if (sesso = "Man"){
-        bmr = 66.5 + (13.75 * peso) + (5.003 * altezza) - (6.755 * anni)
-    } 
-    else {
-        bmr = 655.1 + (9.563 * peso) + (1.850 * altezza) - (4.676 * anni)
-    }
-    
-    // calcolare il DCR daily calorie requirement
-    let dcr = 0
-    switch(attivita){
-        case "0 workout":
-            dcr = bmr * 1.2
-            break
-        case "2 workouts":
-            dcr = bmr * 1.375
-            break 
-        case "from 3 to 5 workouts":
-            dcr = bmr * 1.55
-            break 
-        case "6 or 7 workouts":
-            dcr = bmr * 1.725
-            break 
-    }
+<body>
+    <!-- Immagine di sfondo -->
+    <!-- <style>
+        body{
+            background-image: url("Capture.JPG");
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+    </style> -->
+    <h2>Calories and Macro calculator</h2> <!-- titotlo -->
+    <br> <!-- righe vuote -->
+    <h3>Calories calculator</h3>
 
-    //calcolare deficit calorico
-    deficit = dcr - ((dcr * 20)/100)
+    <!-- inizio drop down list -->
+    <label>Select your sex</label> <!-- inizio drop down list -->
+    <input list="sesso selection" id="sesso" name="sesso">
+    <datalist id="sesso selection">
+        <option value="Man">
+        <option value="Woman">
+    </datalist>
+    <!-- fine drop down list -->
 
-    // calcolare surplus calorico
-    surplus = dcr + 300
+    <br>
 
-    //Mostrare risultati
-    // console.log("The basic metabolic rate of " + nome + " is " + bmr +  " kcal")
-    // console.log("The daily calorie requirement is " + dcr +  " kcal")
-    // console.log("To be in calorie deficit you need to eat max " + deficit +  " kcal")
+    <!-- caselle di input dati -->
+    <label for="nome">Enter your name here: </label>
+    <input type="text" name="nome" id="nome" required>
+    <br>
+    <label for="peso">Enter your weight in kilograms here: </label>
+    <input type="text" name="peso" id="peso" required>
+    <br>
+    <label for="altezza">Enter your height in centimeter here: </label>
+    <input type="text" name="altezza" id="altezza" required>
+    <br>
+    <label for="anni">Enter your age here: </label>
+    <input type="text" name="anni" id="anni" required>
+    <br>
 
-    document.getElementById("risultati").innerText = "The basic metabolic rate of " + nome + " is " + Math.round(bmr) +  " kcal \nThe daily calorie requirement is " + Math.round(dcr) +  " kcal\nTo  loose fat you need to be in calorie deficit of " + Math.round(deficit) +  " kcal" + "\nTo  gain muscle you need to be in calorie surplus of " + Math.round(surplus) +  " kcal"
-    
-    // mostra i nuovi pulsanti
-    document.getElementById("macro").hidden = false
-    document.getElementById("macro_label").hidden = false
-    document.getElementById("macro_button").hidden = false
+    <!-- inizio drop down list -->
+    <label> Select your level of activity during the week </label>
+    <input list="activity selection" id="activity" name="activity">
+    <datalist id="activity selection">
+        <option value="0 workout">
+        <option value="2 workouts">
+        <option value="from 3 to 5 workouts">
+        <option value="6 or 7 workouts">
+    </datalist>
+    <!-- fine drop down list -->
 
-    return deficit
-}
+    <br>
+    <h3>Macro calculator</h3>
 
-function CalculateMacro(){
-    let P
-    let C
-    let F
-    macro = document.getElementById("macro").value
-    switch(macro){
-        case "High carbs":
-            P = (deficit * 0.2) / 4
-            F = (deficit * 0.1) / 9
-            C = (deficit * 0.7) / 4
-            document.getElementById("risultati_macro").innerText = "20% Protein = " + Math.round(P) + " grams \n" + "10% Fats = " + Math.round(F) + " grams \n" + "70% Carbs = " + Math.round(C) + " grams"
-            break
-        case "High protein":
-            P = (deficit * 0.30) / 4
-            F = (deficit * 0.20) / 9
-            C = (deficit * 0.5) / 4
-            document.getElementById("risultati_macro").innerText = "30% Protein = " + Math.round(P) + " grams \n" + "20% Fats = " + Math.round(F) + " grams \n" + "50% Carbs = " + Math.round(C) + " grams"
-            break
-        case "High fats":
-            P = (deficit * 0.23) / 4
-            F = (deficit * 0.7) / 9
-            C = (deficit * 0.07) / 4
-            document.getElementById("risultati_macro").innerText = "23% Protein = " + Math.round(P) + " grams \n" + "70% Fats = " + Math.round(F) + " grams \n" + "7% Carbs = " + Math.round(C) + " grams"
-            break
-    }
+    <!-- tasto per calcolare tutte cose -->
+    <form>
+        <input type="button" value="Calculate" onclick=Calculate()>
+    </form>
 
-}
+    <!-- qui veranno mostrati i risultati -->
+    <p id="risultati"></p>
+
+    <!-- Macro drop down list -->
+    <label id=macro_label hidden=true> Select now the type of diet you prefere to follow</label>
+    <input list="macro selection" id="macro" name="macro" hidden=true>
+    <datalist id="macro selection">
+        <option value="High carbs">
+        <option value="High protein">
+        <option value="High fats">
+    </datalist>
+
+    <!-- tasto calcolo dei macronutrienti -->
+    <form>
+        <input type="button" id=macro_button hidden=true value="Calculate macro" onclick=CalculateMacro()>
+    </form>
+
+    <!-- qui veranno mostrati i risultati dei macronutrienti-->
+    <p id="risultati_macro"></p>
+
+    <!-- script -->
+    <script src="script.js"></script>
+
+</body>
+
+</html>
