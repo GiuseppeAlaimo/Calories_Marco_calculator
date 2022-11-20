@@ -9,32 +9,32 @@ function Calculate() {
     attivita = document.getElementById("activity").value
 
     //calcolare BMR = Basic Metabolic Rate
-    if (sesso = "Man"){
+    if (sesso = "Man") {
         bmr = 66.5 + (13.75 * peso) + (5.003 * altezza) - (6.755 * anni)
-    } 
+    }
     else {
         bmr = 655.1 + (9.563 * peso) + (1.850 * altezza) - (4.676 * anni)
     }
-    
+
     // calcolare il DCR daily calorie requirement
     let dcr = 0
-    switch(attivita){
+    switch (attivita) {
         case "0 workout":
             dcr = bmr * 1.2
             break
         case "2 workouts":
             dcr = bmr * 1.375
-            break 
+            break
         case "from 3 to 5 workouts":
             dcr = bmr * 1.55
-            break 
+            break
         case "6 or 7 workouts":
             dcr = bmr * 1.725
-            break 
+            break
     }
 
     //calcolare deficit calorico
-    deficit = dcr - ((dcr * 20)/100)
+    deficit = dcr - ((dcr * 20) / 100)
 
     // calcolare surplus calorico
     surplus = dcr + 300
@@ -44,22 +44,21 @@ function Calculate() {
     // console.log("The daily calorie requirement is " + dcr +  " kcal")
     // console.log("To be in calorie deficit you need to eat max " + deficit +  " kcal")
 
-    document.getElementById("risultati").innerText = "The basic metabolic rate of " + nome + " is " + Math.round(bmr) +  " kcal \nThe daily calorie requirement is " + Math.round(dcr) +  " kcal\nTo  loose fat you need to be in calorie deficit of " + Math.round(deficit) +  " kcal" + "\nTo  gain muscle you need to be in calorie surplus of " + Math.round(surplus) +  " kcal"
-    
+    document.getElementById("risultati").innerText = "The basic metabolic rate of " + nome + " is " + Math.round(bmr) + " kcal \nThe daily calorie requirement is " + Math.round(dcr) + " kcal\nIf you want to loose fat you need to get around " + Math.round(deficit) + " kcal" + "\nIf you want to gain muscle you need to get around " + Math.round(surplus) + " kcal"
+
     // mostra i nuovi pulsanti
     document.getElementById("macro").hidden = false
     document.getElementById("macro_label").hidden = false
     document.getElementById("macro_button").hidden = false
-
     return deficit
 }
 
-function CalculateMacro(){
+function CalculateMacro() {
     let P
     let C
     let F
     macro = document.getElementById("macro").value
-    switch(macro){
+    switch (macro) {
         case "High carbs":
             P = (deficit * 0.2) / 4
             F = (deficit * 0.1) / 9
